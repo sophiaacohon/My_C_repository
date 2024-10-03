@@ -7,7 +7,7 @@ typedef struct node{
 	struct node* next;
 } Node, *NodePtr;
 
-void insertNode(NodePtr *head, int data){
+void insertFirst(NodePtr *head, int data){
 	
 	NodePtr temp = malloc(sizeof(Node));
 	
@@ -43,6 +43,30 @@ void insertNode(NodePtr *head, int data){
 	for(temp=*head;temp->next!=NULL;temp=temp->next);
 	temp->next = newNode;
 	*/
+}
+
+void insertLast(NodePtr *head, int data){
+	NodePtr temp = malloc(sizeof(Node));
+	if(temp == NULL){
+		printf("Memory Allocation Failed.");
+		return;
+	}
+	temp->data = data;
+	temp->previous = NULL;
+	temp->next = NULL;
+	
+	if(*head == NULL){
+		*head = temp;
+	}
+	else{
+		NodePtr trav;
+		//NodePtr prev = trav;
+		for(trav = *head; trav->next!=NULL; trav = trav->next){
+		}
+		trav->next = temp;
+		temp->previous = trav;
+	}
+	
 }
 
 void printList(NodePtr head){
@@ -84,17 +108,26 @@ void printReverse(NodePtr head){
 int main(){
 	NodePtr head = NULL;
 	
-	insertNode(&head,5);
+	insertFirst(&head,5);
 	printList(head);
-	insertNode(&head,6);
-	insertNode(&head,3);
-	insertNode(&head,4);
-	insertNode(&head,10);
+	insertFirst(&head,6);
+	insertFirst(&head,3);
+	insertFirst(&head,4);
+	insertFirst(&head,10);
 	printList(head);
 	
 	printReverse(head);
 	
 	printList(head);
+	
+	insertLast(&head, 9);
+	insertLast(&head, 8);
+	insertLast(&head, 7);
+	insertLast(&head, 21);
+	
+	printList(head);
+	printReverse(head);
+	
 	return 0;
 }
 
